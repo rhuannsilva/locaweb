@@ -3,7 +3,7 @@ import router from './router';
 import './style.css'
 
 import App from './App.vue'
-import Login from './routes/Login.vue'
+import login from './routes/login.vue'
 
 
 const app = createApp(App);
