@@ -2,19 +2,21 @@
     <cardLoginComponent>
         <inputComponent :placeholder="'Seu Email'" 
                         :type="'text'"
-                        :name="'E-mail'">
+                        :label="'E-mail'"
+                        v-model="user.email">
         </inputComponent>
 
         <inputComponent :placeholder="'Sua senha'" 
                         :type="'password'"
-                        :name="'Senha'">
+                        :label="'Senha'"
+                        v-model="user.password">
         </inputComponent>
 
         <button class="button-login" @click="login"> FAZER LOGIN </button>
     </cardLoginComponent>
 
-    <label>Ainda não tem conta? <router-link to="/register" class="link">Cadastre-se</router-link></label>
-    
+    <span>Ainda não tem conta? <router-link to="/register" class="link">Cadastre-se</router-link></span>
+
 </template>
 
 <script>
@@ -35,7 +37,7 @@ export default {
             user : {
                 email: '', 
                 password:  ''
-            }
+            },
         }
     },
     methods: {
@@ -52,7 +54,7 @@ export default {
             .catch(function (error){
 
             });
-       } 
+       }
     },
 }
 </script>

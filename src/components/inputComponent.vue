@@ -1,18 +1,16 @@
 <template>
-    <label class="label-left">{{ name }}</label>
-    <input :type='type' :placeholder="placeholder"/>
+    <label class="label-left">{{ label }}</label>
+    <input :value="modelValue"
+           v-bind="$attrs"
+           @input="$emit('update:modelValue', $event.target.value)"/>
 </template>
 
 <script>
 export default {
+    emits:['update:modelValue'],
     props:{
-        type: String,
-        placeholder: String,
-        name: String
-    },
-    data(){
-        return {
-        }
+        label: String,
+        modelValue: String
     }
 }
 </script>
