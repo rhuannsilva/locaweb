@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 .card-login{
     display: flex;
     flex-direction: column;
@@ -15,4 +15,5 @@
     padding: 30px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.137);
 }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <cardLoginComponent>
+    <cardComponent>
         <inputComponent :placeholder="'Seu Email'" 
                         :type="'text'"
                         :label="'E-mail'"
@@ -12,25 +12,28 @@
                         v-model="user.password">
         </inputComponent>
 
-        <button class="button-login" @click="login"> FAZER LOGIN </button>
-    </cardLoginComponent>
+        <buttonComponent @click="login">FAZER LOGIN</buttonComponent>
 
-    <span>Ainda não tem conta? <router-link to="/register" class="link">Cadastre-se</router-link></span>
+    </cardComponent>
+
+    <span>Ainda não tem conta? <router-link to="/choose-plan" class="link">Cadastre-se</router-link></span>
 
 </template>
 
 <script>
 
 import inputComponent from '../components/inputComponent.vue';
-import cardLoginComponent from '../components/cardLoginComponent.vue';
+import buttonComponent from '../components/buttonComponent.vue';
+import cardComponent from '../components/cardComponent.vue';
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
 
 export default {
     components: {
         inputComponent,
-        cardLoginComponent,
-        RouterLink
+        cardComponent,
+        RouterLink,
+        buttonComponent
     },
     data () {
         return {
@@ -67,17 +70,11 @@ export default {
         max-width: 600px;
         color: #000;
     }
-    .button-login{
-        height: 65px;
-        border: none;
-        outline: none;
-        margin: 24px 0;
-        background-color: #f30168;
-    }
     .link{
         /* Estilos personalizados */
         color: #f30168;
         text-decoration: underline;
+        margin-top: 10px;
 
     }
 </style>

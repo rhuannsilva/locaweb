@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import login from './routes/login.vue';
-import register from './routes/register.vue';
+import choosePlan from './routes/choosePlan.vue';
+import register from './routes/register.vue'
 
 const routes = [
   {
@@ -9,9 +10,15 @@ const routes = [
     component: login
   },
   {
+    path: '/choose-plan',
+    name: 'choosePlan',
+    component: choosePlan
+  },
+  {
     path: '/register',
     name: 'register',
-    component: register
+    component: register,
+    props:true
   }
 ];
 
