@@ -1,5 +1,10 @@
 <template>
     <div class="hosting-card">
+
+      <slot name="flag">
+
+      </slot>
+
       <h1 class="title">Hospedagem {{ plan.id }}</h1>
 
       <div>
@@ -57,12 +62,12 @@
         </div>
         <slot name="changePlan"></slot>
 
-          <div v-bind:class="hide">
-            <h4>Você ainda tem</h4>
-            <ul>
-              <li v-for="feature in plan.moreFeatures" :key="feature">{{ feature }}</li>
-            </ul>
-          </div>
+        <div v-bind:class="hide">
+          <h4>Você ainda tem</h4>
+          <ul>
+            <li v-for="feature in plan.moreFeatures" :key="feature">{{ feature }}</li>
+          </ul>
+        </div>
       </div>
     </div>
 </template>
@@ -96,7 +101,9 @@ export default {
     width: 100%;
     border-radius: 5px;
     padding: 30px;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.137);
+    position: relative;
+    align-items: center;
+    transition: all 0.4s;
 }
 .content{
   text-align: initial;

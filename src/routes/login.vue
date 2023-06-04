@@ -1,5 +1,12 @@
 <template>
+    <div class="logo">
+        <img src="/public/images/logo.png" alt="" srcset="">
+    </div>
     <cardComponent>
+        <div class="description">
+            <h2>Entre na sua conta</h2>
+            <span>Para acessar sua conta informe seu usuario e senha</span>
+        </div>
         <inputComponent :placeholder="'Seu Email'" 
                         :type="'text'"
                         :label="'E-mail'"
@@ -12,15 +19,13 @@
                         v-model="user.password">
         </inputComponent>
 
-        <div>
-            <alertComponent>{{ this.errorMessage }}</alertComponent>
-        </div>
-
         <buttonComponent :customclass="'red'" @click="login">FAZER LOGIN</buttonComponent>
 
     </cardComponent>
 
-    <span>Ainda não tem conta? <router-link to="/choose-plan" class="link">Cadastre-se</router-link></span>
+    <div class="register">
+        <span>Ainda não tem conta? <router-link to="/choose-plan" class="link">Cadastre-se</router-link></span>
+    </div>
 
 </template>
 
@@ -41,12 +46,14 @@ export default {
         buttonComponent,
         alertComponent
     },
-    data () {
+    data: function () {
         return {
             user : {
                 email: '', 
                 password:  ''
-            }
+            },
+            errorMessage:'',
+            errorT:''
         }
     },
     methods: {
@@ -61,8 +68,7 @@ export default {
                 console.log(response.data)
             })
             .catch(function (error){
-                console.log(error.response.data);
-                this.messageError = error.response;
+                
             });
        }
     },
@@ -83,5 +89,29 @@ export default {
         text-decoration: underline;
         margin-top: 10px;
 
+    }
+    .description{
+        text-align: initial;
+        margin: 0 0 10px 0;
+    }
+    .description h2{
+        font-size: 28px;
+        margin: 0;
+    }
+    .description span{
+        font-size: 19px;
+        font-weight: 400;
+    }
+    .logo{
+        margin: 0 0 20px 0;
+    }
+    .logo img{
+        width: 210px;
+    }
+    .register{
+        margin: 25px 0 0 0;
+    }
+    .register span{
+        font-weight: 500;
     }
 </style>

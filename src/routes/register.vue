@@ -49,8 +49,13 @@
 
         <div class="plan-choose">
             <cardFlatComponent :hide="'hide'" :plan="this.choosenPlan">
+
+                <template v-slot:flag>
+                    <flagComponent :customclass="'black'">PLANO ESCOLHIDO</flagComponent>
+                </template>
+
                 <template v-slot:changePlan>
-                    <buttonComponent :customclass="'black'">Trocar plano</buttonComponent>
+                    <buttonComponent @click="choosePlan" :customclass="'black'">Trocar plano</buttonComponent>
                 </template>
             </cardFlatComponent>
         </div>
@@ -106,13 +111,15 @@ import cardComponent from '../components/cardComponent.vue';
 import inputComponent from '../components/inputComponent.vue';
 import cardFlatComponent from '../components/cardFlatComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
+import flagComponent from '../components/flagComponent.vue'
 
 export default {
     components:{
         cardComponent,
         inputComponent,
         cardFlatComponent,
-        buttonComponent
+        buttonComponent,
+        flagComponent
     },
     data() {
         return {
@@ -120,6 +127,11 @@ export default {
             user: {
                 
             }
+        }
+    },
+    methods: {
+        choosePlan(){
+            this.$router.push({ path: '/choose-plan' });
         }
     },
     created() {
