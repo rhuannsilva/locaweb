@@ -8,16 +8,31 @@
             <span>Escolha o seu plano</span>
         </div>
     </div>
-    <div class="plans">
-        <div class="content" v-for="plan in plans" :key="plan.id">
-            <cardFlatComponent :plan="plan">
 
+    <div class="plans">
+        <Carousel v-if="isMobileResolution">
+            <slide v-for="plan in plans" :key="plan.id">
+                <cardFlatComponent :plan="plan">
+                    <template v-slot:flag>
+                        <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
+                    </template>
+                    <buttonComponent :customclass="'red'"
+                                    @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
+                </cardFlatComponent>
+            </slide>
+
+            <template #addons>
+                <Navigation />
+            </template>
+        </Carousel>
+    
+        <div v-else class="content" v-for="plan in plans" :key="plan.id">
+            <cardFlatComponent :plan="plan">
                 <template v-slot:flag>
                     <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
                 </template>
-
                 <buttonComponent :customclass="'red'"
-                                 @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
+                                    @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
             </cardFlatComponent>
         </div>
     </div>
@@ -36,11 +51,29 @@
     font-size: 32px;
     margin: 15px 0;
 }
+.description span{
+    font-size: 21px;
+    font-weight: 500;
+}
 .description{
     margin: 0 0 15px 0;
 }
 .header{
     margin: 0 0 20px 0;
+}
+.carousel__slide{
+    align-items: normal;
+}
+@media screen and (max-width: 810px) {
+    .description h2{
+        font-size: 25px;
+    }
+    .description span{
+        font-size: 16px;
+    }
+    .header{
+        margin: 0 0 10px 0;
+    }
 }
 </style>
 
@@ -48,18 +81,25 @@
 
 import cardFlatComponent from '../components/cardFlatComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
-import flagComponent from '../components/flagComponent.vue'
+import flagComponent from '../components/flagComponent.vue';
 import { RouterLink } from 'vue-router';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default{
     components: {
         cardFlatComponent,
         buttonComponent,
         RouterLink,
-        flagComponent
+        flagComponent,
+        Carousel, 
+        Slide, 
+        Pagination, 
+        Navigation
     },
     data(){
         return{
+            isMobileResolution: false,
             plans : [
                 {
                     id: 1,
@@ -158,12 +198,22 @@ export default{
             ]
         }
     },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.checkResolution); // Remover o ouvinte de eventos de redimensionamento da janela ao destruir o componente
+    },
     methods:{
         choosenPlan(plan) {
             sessionStorage.setItem('plan', JSON.stringify(plan))
 
             this.$router.push({ path: '/register' });
         },
-    }
+        checkResolution() {
+            this.isMobileResolution = window.innerWidth < 1100; // Definir a variável isMobileResolution como true se a largura da janela for menor do que 768 pixels
+        },
+    },
+    mounted() {
+        this.checkResolution(); // Verificar a resolução inicialmente no momento em que o componente é montado
+        window.addEventListener('resize', this.checkResolution); // Ouvir eventos de redimensionamento da janela
+    },
 }
 </script>
