@@ -166,4 +166,10 @@ export default {
   padding: 20px 45px;
   font-size: 18px;
 }
+
+@media screen and (max-width: 1099px) {
+  .hosting-card{
+    max-width: 500px;  
+  }
+}
 </style>
