@@ -55,14 +55,14 @@
             <li>Migramos todos os seus sites para nossos servidores</li>
           </ul>
         </div>
-        <slot name="changePlan">
+        <slot name="changePlan"></slot>
 
-        </slot>
-
-          <h4>Você ainda tem</h4>
-          <ul>
-            <li v-for="feature in plan.moreFeatures" :key="feature">{{ feature }}</li>
-          </ul>
+          <div v-bind:class="hide">
+            <h4>Você ainda tem</h4>
+            <ul>
+              <li v-for="feature in plan.moreFeatures" :key="feature">{{ feature }}</li>
+            </ul>
+          </div>
       </div>
     </div>
 </template>
@@ -78,12 +78,16 @@ export default {
     },
     props:{
       plan: Object,
-      action: String
+      action: String,
+      hide: String
     }
 }
 </script>
 
 <style scoped>
+.hide{
+  display: none;
+}
 .hosting-card{
     display: flex;
     flex-direction: column;

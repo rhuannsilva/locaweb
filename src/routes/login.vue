@@ -12,7 +12,11 @@
                         v-model="user.password">
         </inputComponent>
 
-        <buttonComponent @click="login">FAZER LOGIN</buttonComponent>
+        <div>
+            <alertComponent>{{ this.errorMessage }}</alertComponent>
+        </div>
+
+        <buttonComponent :customclass="'red'" @click="login">FAZER LOGIN</buttonComponent>
 
     </cardComponent>
 
@@ -23,6 +27,7 @@
 <script>
 
 import inputComponent from '../components/inputComponent.vue';
+import alertComponent from '../components/alertComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import cardComponent from '../components/cardComponent.vue';
 import { RouterLink } from 'vue-router';
@@ -33,14 +38,15 @@ export default {
         inputComponent,
         cardComponent,
         RouterLink,
-        buttonComponent
+        buttonComponent,
+        alertComponent
     },
     data () {
         return {
             user : {
                 email: '', 
                 password:  ''
-            },
+            }
         }
     },
     methods: {
@@ -48,14 +54,15 @@ export default {
             const url = 'https://fakestoreapi.com/auth/login'
             
             axios.post(url, {
-                username: "mor_2314",
-                password: "83r5^_"
+                username: this.user.email,
+                password: this.user.password
             })
             .then(function(response){
                 console.log(response.data)
             })
             .catch(function (error){
-
+                console.log(error.response.data);
+                this.messageError = error.response;
             });
        }
     },

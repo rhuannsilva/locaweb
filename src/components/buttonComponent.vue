@@ -24,7 +24,12 @@ export default {
     outline: none;
     margin: 24px 0;
     background-color: #f30168;
+    
+    transition: all 0.4s;
     color: #fff;
+}
+.red:hover{
+    opacity: 0.5;
 }
 .black{
     height: 65px;
