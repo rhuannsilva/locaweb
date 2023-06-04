@@ -1,11 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from './routes/Login.vue';
+import login from './routes/login.vue';
+import choosePlan from './routes/choosePlan.vue';
+import register from './routes/register.vue'
 
 const routes = [
   {
     path: '/',
     name: 'login',
-    component: Login
+    component: login
+  },
+  {
+    path: '/choose-plan',
+    name: 'choosePlan',
+    component: choosePlan
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: register,
+    props:true
   }
 ];
 
