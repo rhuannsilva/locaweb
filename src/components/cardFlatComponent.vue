@@ -43,7 +43,7 @@
         
       </slot>
 
-      <div class="content">
+      <div v-bind:class="isMobileResolution ? 'hide' : 'content'">
         <h4>Seu site em servidores no {{ plan.server }}</h4>
         <ul>
           <li v-for="detail in plan.details" :key="detail"> {{ detail }}</li>
@@ -69,6 +69,10 @@
           </ul>
         </div>
       </div>
+
+      <div v-if="isMobileResolution" class="responsive-button-black">
+        <slot name="changePlan"></slot>
+      </div>
     </div>
 </template>
 
@@ -78,14 +82,32 @@
 import buttonComponent from '../components/buttonComponent.vue';
 
 export default {
-    components:{
-      buttonComponent
-    },
-    props:{
-      plan: Object,
-      action: String,
-      hide: String
+  components:{
+    buttonComponent
+  },
+  props:{
+    plan: Object,
+    action: String,
+    hide: String,
+    hideResponsible: String
+  },
+  data(){
+    return{
+      isMobileResolution: false
     }
+  },
+  methods: {
+    checkResolution() {
+      this.isMobileResolution = window.innerWidth < 1000;
+    },
+  },
+  mounted() {
+    this.checkResolution();
+    window.addEventListener('resize', this.checkResolution);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.checkResolution);
+  },
 }
 </script>
 
@@ -98,7 +120,6 @@ export default {
     flex-direction: column;
     background-color: #fff;
     max-width: 275px;
-    width: 100%;
     border-radius: 5px;
     padding: 30px;
     position: relative;
@@ -166,10 +187,7 @@ export default {
   padding: 20px 45px;
   font-size: 18px;
 }
-
-@media screen and (max-width: 1099px) {
-  .hosting-card{
-    max-width: 500px;  
-  }
+.responsive-button-black{
+  width: 100%;
 }
 </style>

@@ -48,7 +48,9 @@
         </div>
 
         <div class="plan-choose">
-            <cardFlatComponent :hide="'hide'" :plan="this.choosenPlan">
+            <cardFlatComponent :hide="'hide'"
+                               :hideResponsible="'hide'" 
+                               :plan="this.choosenPlan">
 
                 <template v-slot:flag>
                     <flagComponent :customclass="'black'">PLANO ESCOLHIDO</flagComponent>
@@ -102,6 +104,12 @@
 .description-data{
     text-align: initial;
     margin: 10px 0;
+}
+@media screen and (max-width: 999px) {
+    .content{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
 }
 </style>
 

@@ -10,23 +10,7 @@
     </div>
 
     <div class="plans">
-        <Carousel v-if="isMobileResolution">
-            <slide v-for="plan in plans" :key="plan.id">
-                <cardFlatComponent :plan="plan">
-                    <template v-slot:flag>
-                        <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
-                    </template>
-                    <buttonComponent :customclass="'red'"
-                                    @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
-                </cardFlatComponent>
-            </slide>
-
-            <template #addons>
-                <Navigation />
-            </template>
-        </Carousel>
-    
-        <div v-else class="content" v-for="plan in plans" :key="plan.id">
+        <div class="content" v-for="plan in plans" :key="plan.id">
             <cardFlatComponent :plan="plan">
                 <template v-slot:flag>
                     <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
@@ -64,7 +48,10 @@
 .carousel__slide{
     align-items: normal;
 }
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 999px) {
+    .plans{
+        flex-direction: column;
+    }
     .description h2{
         font-size: 25px;
     }
@@ -195,6 +182,22 @@ export default{
                     ]
                 },
 
+            ],
+            responsiveSettings: [
+                {
+                breakpoint: 810,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+                },
+                {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+                }
             ]
         }
     },
