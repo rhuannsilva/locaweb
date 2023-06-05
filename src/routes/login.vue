@@ -8,16 +8,19 @@
                 <h2>Entre na sua conta</h2>
                 <span>Para acessar sua conta informe seu usuario e senha</span>
             </div>
-            <inputComponent :placeholder="'Seu Email'"
+            <inputComponent :placeholder="'Seu usuário'"
                             :type="'text'"
-                            :label="'E-mail'"
-                            v-model="user.email">
+                            :label="'Usuário'"
+                            v-model="user.username">
             </inputComponent>
             <inputComponent :placeholder="'Sua senha'"
                             :type="'password'"
                             :label="'Senha'"
                             v-model="user.password">
             </inputComponent>
+
+            <alertComponent v-show="this.alertShow">{{ this.errorMessage }}</alertComponent>
+
             <buttonComponent :customclass="'red'" @click="login">FAZER LOGIN</buttonComponent>
         </cardComponent>
         <div class="register">
@@ -43,12 +46,14 @@ export default {
         buttonComponent,
         alertComponent
     },
-    data: function () {
+    data: function ()  {
         return {
             user : {
-                email: '', 
+                username: '', 
                 password:  ''
-            }
+            },
+            errorMessage: '',
+            alertShow: false
         }
     },
     methods: {
@@ -56,16 +61,23 @@ export default {
             const url = 'https://fakestoreapi.com/auth/login'
             
             const user = {
-                username: this.user.email,
+                username: this.user.username,
                 password: this.user.password
             }
 
             axios.post(url, user)
             .then((response) => {
+                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('name', user.name)
                 this.$router.push({ path: '/home' });
             })
-            .catch(function (error){
-                console.log(error)
+            .catch((error) => {
+                this.errorMessage = error.response.data;
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
             });
         }
     },
