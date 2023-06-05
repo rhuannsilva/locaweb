@@ -71,7 +71,7 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   text-align: center;
 }
 
