@@ -1,6 +1,6 @@
 <template>
     <div class="logo">
-        <img src="/public/images/logo.png" alt="" srcset="">
+        <img src="/images/logo.png" alt="" srcset="">
     </div>
     <cardComponent>
         <div class="description">
@@ -51,26 +51,26 @@ export default {
             user : {
                 email: '', 
                 password:  ''
-            },
-            errorMessage:'',
-            errorT:''
+            }
         }
     },
     methods: {
-       login(){
+        login(){
             const url = 'https://fakestoreapi.com/auth/login'
             
-            axios.post(url, {
+            const user = {
                 username: this.user.email,
                 password: this.user.password
-            })
-            .then(function(response){
-                console.log(response.data)
+            }
+
+            axios.post(url, user)
+            .then((response) => {
+                this.$router.push({ path: '/home' });
             })
             .catch(function (error){
-                
+                console.log(error)
             });
-       }
+        }
     },
 }
 </script>

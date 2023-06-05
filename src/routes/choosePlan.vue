@@ -45,9 +45,6 @@
 .header{
     margin: 0 0 20px 0;
 }
-.carousel__slide{
-    align-items: normal;
-}
 @media screen and (max-width: 999px) {
     .plans{
         flex-direction: column;

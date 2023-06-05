@@ -1,4 +1,12 @@
 <template>
+    <div class="header">
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+        </div>
+        <div class="description">
+            <h2>Você está muito próximo de mudar a forma de <br>hospedar seu site</h2>
+        </div>
+    </div>
     <div class="content">
         <div class="register">
             <cardComponent>
@@ -9,25 +17,31 @@
 
                 <inputComponent :placeholder="'Informe seu nome completo'"
                                 :type="'text'"
-                                :label="'Nome completo'">
+                                :label="'Nome completo'"
+                                v-model="user.nameUser">
                 </inputComponent>
                 <inputComponent :placeholder="'Celular'"
                                 :type="'number'"
-                                :label="'Celular'">
+                                :label="'Celular'"
+                                v-model="user.telephone">
                 </inputComponent>
                 <inputComponent :placeholder="'e-mail'"
                                 :type="'text'"
-                                :label="'E-mail'">
+                                :label="'E-mail'"
+                                v-model="user.email">
                 </inputComponent>
                 <inputComponent :placeholder="'Informe um usuario'"
                                 :type="'text'"
-                                :label="'Usuario'">
+                                :label="'Usuario'"
+                                v-model="user.username">
                 </inputComponent>
                 <inputComponent :type="'password'"
-                                :label="'Senha'">
+                                :label="'Senha'"
+                                v-model="user.password">
                 </inputComponent>
                 <inputComponent :type="'password'"
-                                :label="'Confirme sua senha'">
+                                :label="'Confirme sua senha'"
+                                v-model="user.confirmPassword">
                 </inputComponent>
 
                 <div class="website-data">
@@ -43,13 +57,12 @@
 
                 <span><input type="checkbox"> Ao concluir com seu cadastro você concorda com nossos <u>termos de uso</u> e <u>politicas de privacidade.</u></span>
 
-                <buttonComponent :customclass="'red'">CRIAR CONTA</buttonComponent>
+                <buttonComponent @click="register()" :customclass="'red'">CRIAR CONTA</buttonComponent>
             </cardComponent>
         </div>
 
         <div class="plan-choose">
             <cardFlatComponent :hide="'hide'"
-                               :hideResponsible="'hide'" 
                                :plan="this.choosenPlan">
 
                 <template v-slot:flag>
@@ -105,6 +118,23 @@
     text-align: initial;
     margin: 10px 0;
 }
+.logo img{
+    width: 210px;
+}
+.description h2{
+    font-size: 32px;
+    margin: 15px 0;
+}
+.description span{
+    font-size: 21px;
+    font-weight: 500;
+}
+.description{
+    margin: 0 0 15px 0;
+}
+.header{
+    margin: 0 0 20px 0;
+}
 @media screen and (max-width: 999px) {
     .content{
         flex-direction: column-reverse;
@@ -120,6 +150,8 @@ import inputComponent from '../components/inputComponent.vue';
 import cardFlatComponent from '../components/cardFlatComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import flagComponent from '../components/flagComponent.vue'
+import axios from 'axios';
+import { RouterLink } from 'vue-router';
 
 export default {
     components:{
@@ -127,19 +159,47 @@ export default {
         inputComponent,
         cardFlatComponent,
         buttonComponent,
-        flagComponent
+        flagComponent,
+        RouterLink
     },
     data() {
         return {
             choosenPlan: '',
             user: {
-                
+                nameUser: '',
+                email:'',
+                telephone:'',
+                username:'',
+                password:'',
+                confirmPassword:''
             }
         }
     },
     methods: {
         choosePlan(){
             this.$router.push({ path: '/choose-plan' });
+        },
+        register(){
+
+            const url = 'https://fakestoreapi.com/users';
+
+            const user = {
+                email: this.user.email,
+                username: this.user.username,
+                password: this.user.password,
+                name : {
+                    firstname : this.user.nameUser
+                },
+                phone: this.user.telephone
+            }
+            axios.post(url, user)
+            .then((response) => {
+                console.log(response.data);
+                this.$router.push({ path: '/home' });
+            })
+            .catch(function (error){
+                console.log(error);
+            })
         }
     },
     created() {
