@@ -1,28 +1,34 @@
 <template>
-    <div class="header">
-        <div class="logo">
-            <img src="/images/logo.png" alt="">
+    <section class="choose-plan">
+        <div class="header">
+            <div class="logo">
+                <img src="/images/logo.png" alt="">
+            </div>
+            <div class="description">
+                <h2>Você está muito próximo de mudar a forma de <br>hospedar seu site</h2>
+                <span>Escolha o seu plano</span>
+            </div>
         </div>
-        <div class="description">
-            <h2>Você está muito próximo de mudar a forma de <br>hospedar seu site</h2>
-            <span>Escolha o seu plano</span>
+        <div class="plans">
+            <div class="content" v-for="plan in plans" :key="plan.id">
+                <cardFlatComponent :plan="plan">
+                    <template v-slot:flag>
+                        <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
+                    </template>
+                    <buttonComponent :customclass="'red'"
+                                        @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
+                </cardFlatComponent>
+            </div>
         </div>
-    </div>
-
-    <div class="plans">
-        <div class="content" v-for="plan in plans" :key="plan.id">
-            <cardFlatComponent :plan="plan">
-                <template v-slot:flag>
-                    <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
-                </template>
-                <buttonComponent :customclass="'red'"
-                                    @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
-            </cardFlatComponent>
-        </div>
-    </div>
+    </section>
 </template>
 
 <style scoped>
+.choose-plan{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .plans{
     display: flex;
     flex-direction: row;

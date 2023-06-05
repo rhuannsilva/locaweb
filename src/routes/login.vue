@@ -1,32 +1,29 @@
 <template>
-    <div class="logo">
-        <img src="/images/logo.png" alt="" srcset="">
-    </div>
-    <cardComponent>
-        <div class="description">
-            <h2>Entre na sua conta</h2>
-            <span>Para acessar sua conta informe seu usuario e senha</span>
+    <section class="login">
+        <div class="logo">
+            <img src="/images/logo.png" alt="" srcset="">
         </div>
-        <inputComponent :placeholder="'Seu Email'" 
-                        :type="'text'"
-                        :label="'E-mail'"
-                        v-model="user.email">
-        </inputComponent>
-
-        <inputComponent :placeholder="'Sua senha'" 
-                        :type="'password'"
-                        :label="'Senha'"
-                        v-model="user.password">
-        </inputComponent>
-
-        <buttonComponent :customclass="'red'" @click="login">FAZER LOGIN</buttonComponent>
-
-    </cardComponent>
-
-    <div class="register">
-        <span>Ainda não tem conta? <router-link to="/choose-plan" class="link">Cadastre-se</router-link></span>
-    </div>
-
+        <cardComponent>
+            <div class="description">
+                <h2>Entre na sua conta</h2>
+                <span>Para acessar sua conta informe seu usuario e senha</span>
+            </div>
+            <inputComponent :placeholder="'Seu Email'"
+                            :type="'text'"
+                            :label="'E-mail'"
+                            v-model="user.email">
+            </inputComponent>
+            <inputComponent :placeholder="'Sua senha'"
+                            :type="'password'"
+                            :label="'Senha'"
+                            v-model="user.password">
+            </inputComponent>
+            <buttonComponent :customclass="'red'" @click="login">FAZER LOGIN</buttonComponent>
+        </cardComponent>
+        <div class="register">
+            <span>Ainda não tem conta? <router-link to="/choose-plan" class="link">Cadastre-se</router-link></span>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -76,19 +73,16 @@ export default {
 </script>
 
 <style scoped>
-    .container{
+    .login{
         display: flex;
         flex-direction: column;
-        width: 100%;
-        max-width: 600px;
-        color: #000;
+        align-items: center;
     }
     .link{
         /* Estilos personalizados */
         color: #f30168;
         text-decoration: underline;
         margin-top: 10px;
-
     }
     .description{
         text-align: initial;
