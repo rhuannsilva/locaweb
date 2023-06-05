@@ -1,14 +1,13 @@
 <template>
-    <div class="card-login">
+    <div class="card">
       <slot></slot>
     </div>
 </template>
 
 <style scoped>
-.card-login{
+.card{
     display: flex;
     flex-direction: column;
-    width: 100%;
     max-width: 510px;
     background-color: #fff;
     border-radius: 5px;
