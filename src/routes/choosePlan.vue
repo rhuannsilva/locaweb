@@ -70,23 +70,16 @@ import cardFlatComponent from '../components/cardFlatComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import flagComponent from '../components/flagComponent.vue';
 import { RouterLink } from 'vue-router';
-import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default{
     components: {
         cardFlatComponent,
         buttonComponent,
         RouterLink,
-        flagComponent,
-        Carousel, 
-        Slide, 
-        Pagination, 
-        Navigation
+        flagComponent
     },
     data(){
         return{
-            isMobileResolution: false,
             plans : [
                 {
                     id: 1,
@@ -183,40 +176,16 @@ export default{
                 },
 
             ],
-            responsiveSettings: [
-                {
-                breakpoint: 810,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-                },
-                {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-                }
-            ]
         }
     },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.checkResolution); // Remover o ouvinte de eventos de redimensionamento da janela ao destruir o componente
-    },
+
     methods:{
         choosenPlan(plan) {
             sessionStorage.setItem('plan', JSON.stringify(plan))
 
             this.$router.push({ path: '/register' });
         },
-        checkResolution() {
-            this.isMobileResolution = window.innerWidth < 1100; // Definir a variável isMobileResolution como true se a largura da janela for menor do que 768 pixels
-        },
-    },
-    mounted() {
-        this.checkResolution(); // Verificar a resolução inicialmente no momento em que o componente é montado
-        window.addEventListener('resize', this.checkResolution); // Ouvir eventos de redimensionamento da janela
+
     },
 }
 </script>
