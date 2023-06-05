@@ -4,9 +4,8 @@
                 <img src="/images/logo.png" alt="">
             </div>
             <div class="dropdown">
-                <div class="icon-user" @click="toggleDropdown">J</div>
+                <div class="icon-user" @click="toggleDropdown">{{ name[0] }}</div>
                 <div v-if="isDropdownOpen" class="dropdown-content">
-                  <!-- Conteúdo do dropdown -->
                   <a @click="logout()">Sair</a>
                 </div>
               </div>
@@ -23,19 +22,26 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isDropdownOpen: false
-    };
-  },
-  methods: {
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
+    data() {
+        return {
+            isDropdownOpen: false,
+            name:''
+        };
     },
-    logout(){
-        this.$router.push({ path: '/' });
-    }
-  }
+    methods: {
+        toggleDropdown() {
+            this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        logout(){
+            this.$router.push({ path: '/' });
+            sessionStorage.removeItem('name');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('plan');
+        }
+    },
+    mounted() {
+        this.name = sessionStorage.getItem('name');
+    },
 };
 </script>
 

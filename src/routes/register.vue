@@ -32,7 +32,7 @@
                 </inputComponent>
                 <inputComponent :placeholder="'Informe um usuario'"
                                 :type="'text'"
-                                :label="'Usuario'"
+                                :label="'Usuário'"
                                 v-model="user.username">
                 </inputComponent>
                 <inputComponent :type="'password'"
@@ -55,7 +55,9 @@
                     </div>
                 </div>
 
-                <span><input type="checkbox"> Ao concluir com seu cadastro você concorda com nossos <u>termos de uso</u> e <u>politicas de privacidade.</u></span>
+                <span><input type="checkbox"> Ao concluir com seu cadastro, você concorda com nossos <u>termos de uso</u> e <u>políticas de privacidade.</u></span>
+
+                <alertComponent v-show="this.alertShow">{{ this.errorMessage }}</alertComponent>
 
                 <buttonComponent @click="register()" :customclass="'red'">CRIAR CONTA</buttonComponent>
             </cardComponent>
@@ -150,6 +152,7 @@ import inputComponent from '../components/inputComponent.vue';
 import cardFlatComponent from '../components/cardFlatComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import flagComponent from '../components/flagComponent.vue'
+import alertComponent from '../components/alertComponent.vue';
 import axios from 'axios';
 import { RouterLink } from 'vue-router';
 
@@ -160,6 +163,7 @@ export default {
         cardFlatComponent,
         buttonComponent,
         flagComponent,
+        alertComponent,
         RouterLink
     },
     data() {
@@ -172,34 +176,117 @@ export default {
                 username:'',
                 password:'',
                 confirmPassword:''
-            }
+            },
+            errorMessage: '',
+            alertShow: false
         }
     },
     methods: {
         choosePlan(){
             this.$router.push({ path: '/choose-plan' });
         },
+        validate(){
+            if(this.user.nameUser === ''){
+                this.errorMessage = 'Nome obrigatório';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+
+            if(this.user.telephone === ''){
+                this.errorMessage = 'Telefone obrigatório';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+
+            if(this.user.email === ''){
+                this.errorMessage = 'Email obrigatório';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+
+            if(this.user.username === ''){
+                this.errorMessage = 'Usuário obrigatório';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+
+            if(this.user.password === ''){
+                this.errorMessage = 'Senha obrigatório';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+
+            if(this.user.password != this.user.confirmPassword){
+                this.errorMessage = 'Senhas não correspondem, por favor verifique!';
+                this.alertShow = true;
+
+                setTimeout(() => {
+                    this.alertShow = false;
+                }, 2000);
+
+                return false;
+            }
+            return true;
+        },
         register(){
 
-            const url = 'https://fakestoreapi.com/users';
+            if(this.validate() === false){
+                return;
+            }else{
 
-            const user = {
-                email: this.user.email,
-                username: this.user.username,
-                password: this.user.password,
-                name : {
-                    firstname : this.user.nameUser
-                },
-                phone: this.user.telephone
+                const url = 'https://fakestoreapi.com/users';
+    
+                const user = {
+                    email: this.user.email,
+                    username: this.user.username,
+                    password: this.user.password,
+                    name : {
+                        firstname : this.user.nameUser
+                    },
+                    phone: this.user.telephone
+                }
+    
+    
+                axios.post(url, user)
+                .then((response) => {
+                    this.$router.push({ path: '/home' });
+
+                    sessionStorage.setItem('name', this.user.nameUser)
+                })
+                .catch(function (error){
+                    this.errorMessage = error.response.data;
+                    this.alertShow = true;
+
+                    setTimeout(() => {
+                        this.alertShow = false;
+                    }, 2000);
+                })
             }
-            axios.post(url, user)
-            .then((response) => {
-                console.log(response.data);
-                this.$router.push({ path: '/home' });
-            })
-            .catch(function (error){
-                console.log(error);
-            })
         }
     },
     created() {
