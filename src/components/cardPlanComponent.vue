@@ -130,10 +130,20 @@ export default {
   text-align: initial;
 }
 .content ul{
-  padding: 0 21px;
+  padding: 0;
+  list-style: none;
 }
 .content ul li::after{
   content: ';';
+}
+.content ul li::before{
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('check.svg');
+  background-size: cover;
+  margin-right: 8px;
 }
 .content ul li{
   color: #00000091;;
