@@ -141,7 +141,7 @@ export default {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background-image: url('check.svg');
+  background-image: url('/images/check.svg');
   background-size: cover;
   margin-right: 8px;
 }
