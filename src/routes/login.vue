@@ -58,6 +58,8 @@ export default {
     },
     methods: {
         login(){
+            // funcao responsavel por fazer autenticaçao do usuario
+
             const url = 'https://fakestoreapi.com/auth/login'
             
             const user = {
@@ -82,6 +84,8 @@ export default {
             });
         },
         getUser(userParams){
+            // funcao responsavel por capturar usuario de login e retornar nome para a tela home
+            
             const url = 'https://fakestoreapi.com/users'
             var nameUser;
 

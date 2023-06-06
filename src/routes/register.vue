@@ -194,6 +194,9 @@ export default {
             this.$router.push({ path: '/choose-plan' });
         },
         validate(){
+
+            // funcao responsavel por fazer as validaçoes nos campos de registro
+
             if(this.user.nameUser === ''){
                 this.errorMessage = 'Nome obrigatório';
                 this.alertShow = true;
@@ -262,6 +265,8 @@ export default {
             return true;
         },
         register(){
+
+            // funcao para criar um usuario e em seguida direcionar para a home
 
             if(this.validate() === false){
                 return;
