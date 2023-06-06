@@ -20,7 +20,7 @@ Certifique-se de ter o Node.js e o npm instalados
 npm install
 ```
 
-<h2>Executando a Aplicação></h2>
+<h2>Executando a Aplicação</h2>
 
 1. Após a instalação do ambiente e projeto, execute o comando para rodar a aplicação:
 ```bash{style="background-color: black; color: white;"}
