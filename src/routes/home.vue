@@ -12,8 +12,8 @@
         </div>
         <div class="content">
             <div class="description">
-                <h2>Olá, Rhuann</h2>
-                <span>Seja bem vindo a sua conta de hospedagem.</span>
+                <h2>Olá {{ this.name }},</h2>
+                <span>Seja bem-vindo a sua conta de hospedagem.</span>
             </div>
 
             <iframe src="https://www.youtube.com/embed/0tdqo81VpLo" title="Clean Code: o que é e por que usar? | Locaweb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -39,8 +39,8 @@ export default {
             sessionStorage.removeItem('plan');
         }
     },
-    mounted() {
-        this.name = sessionStorage.getItem('name');
+    created() {
+        this.name = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : 'Fulano';
     },
 };
 </script>
@@ -54,7 +54,7 @@ export default {
     margin: 0 auto;
 }
 .content h2{
-    margin: 5px 0;
+    margin: 10px 0;
 }
 .content span{
     font-weight: 500;
@@ -79,7 +79,7 @@ export default {
     width: 210px;
 }
 .icon-user{
-    padding: 24px 32px;
+    padding: 20px 26px;
     background-color: #00000024;
     border-radius: 40px;
     color: #fff;
@@ -92,9 +92,9 @@ iframe{
     position: relative;
     display: inline-block;
     cursor: pointer;
-  }
+}
   
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     z-index: 1;
@@ -102,19 +102,25 @@ iframe{
     min-width: 160px;
     padding: 10px;
     border: 1px solid #ddd;
-    right: -25px;
+    right: -20px;
+    top: 70px;
     border-radius: 10px;
-  }
-  
-  .dropdown-content a {
+}
+
+.dropdown-content a {
     display: block;
     padding: 5px 0;
     text-decoration: none;
     color: #333;
     padding: 5px 0px;
-  }
-  
-  .dropdown:hover .dropdown-content {
+}
+
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
+@media screen and (max-width: 768px) {
+    iframe{
+        height: 400px;
+    }
+}
 </style>

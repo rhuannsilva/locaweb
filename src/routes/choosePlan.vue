@@ -5,19 +5,19 @@
                 <img src="/images/logo.png" alt="">
             </div>
             <div class="description">
-                <h2>Você está muito próximo de mudar a forma de <br>hospedar seu site</h2>
-                <span>Escolha o seu plano</span>
+                <h2>Você está muito próximo de mudar a forma de <br><span class="description-span-color"><u>hospedar seu site</u></span></h2>
+                <p>Escolha o seu plano</p>
             </div>
         </div>
         <div class="plans">
             <div class="content" v-for="plan in plans" :key="plan.id">
-                <cardFlatComponent :plan="plan">
+                <cardPlanComponent :plan="plan">
                     <template v-slot:flag>
                         <flagComponent v-if="plan.moreUsed === true" :customclass="'green'">MAIS USADO</flagComponent>
                     </template>
                     <buttonComponent :customclass="'red'"
                                         @click="choosenPlan(plan)">ESCOLHER ESSE PLANO</buttonComponent>
-                </cardFlatComponent>
+                </cardPlanComponent>
             </div>
         </div>
     </section>
@@ -41,7 +41,7 @@
     font-size: 32px;
     margin: 15px 0;
 }
-.description span{
+.description p{
     font-size: 21px;
     font-weight: 500;
 }
@@ -51,6 +51,11 @@
 .header{
     margin: 0 0 20px 0;
 }
+.description-span-color{
+    font-size: 32px;
+    font-weight: 700;
+    color: #f30168;
+}
 @media screen and (max-width: 999px) {
     .plans{
         flex-direction: column;
@@ -59,7 +64,7 @@
         font-size: 25px;
     }
     .description span{
-        font-size: 16px;
+        font-size: 25px;
     }
     .header{
         margin: 0 0 10px 0;
@@ -69,14 +74,14 @@
 
 <script>
 
-import cardFlatComponent from '../components/cardFlatComponent.vue';
+import cardPlanComponent from '../components/cardPlanComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import flagComponent from '../components/flagComponent.vue';
 import { RouterLink } from 'vue-router';
 
 export default{
     components: {
-        cardFlatComponent,
+        cardPlanComponent,
         buttonComponent,
         RouterLink,
         flagComponent
@@ -92,11 +97,11 @@ export default{
                     setupFee: '',
                     server: 'Estados Unidos',
                     details: [
-                        'Servidores em nossos data center americanos',
+                        'Servidores em nossos data centers americanos',
                         'ASP ASPNET 2.0/3.0/3.5/ e 4.0/4.5/4.5.1/4.5.2 (medium trust) ou PHP 5.3, 5.4, 5.5, 5.6 e 7.0',
                         '1 usuário de FTP upload ou download',
                         '1 contas de e-mails profissionais',
-                        '1 subdomínio gratuito;'
+                        '1 subdomínio gratuito'
                 ],
                     support: 'all',
                     availableApps: [
@@ -123,7 +128,7 @@ export default{
                     billingDate: 'mensalmente',
                     server: 'Brasil',
                     details: [
-                        'Servidores em nossos data center americanos',
+                        'Servidores em nossos data centers americanos',
                         'ASP ASPNET 2.0/3.0/3.5/ e 4.0/4.5/4.5.1/4.5.2 (medium trust) ou PHP 5.3, 5.4, 5.5, 5.6 e 7.0',
                         '1 usuário de FTP upload ou download',
                         '1 contas de e-mails profissionais',
@@ -153,7 +158,7 @@ export default{
                     billingDate: 'mensalmente',
                     server: 'Brasil',
                     details: {
-                        field1: 'Servidores em nossos data center de São Paulo',
+                        field1: 'Servidores em nossos data centers de São Paulo',
                         field2: 'ASP ASPNET 2.0/3.0/3.5/ e 4.0/4.5/4.5.1/4.5.2 (medium trust) ou PHP 5.3, 5.4, 5.5, 5.6 e 7.0',
                         field3: '10 usuários de FTP para upload ou download',
                         field4: '30 contas de e-mails profissionais',
