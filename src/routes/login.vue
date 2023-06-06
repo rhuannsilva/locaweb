@@ -6,7 +6,7 @@
         <cardComponent>
             <div class="description">
                 <h2>Entre na sua conta</h2>
-                <span>Para acessar sua conta informe seu usuario e senha</span>
+                <span>Para acessar sua conta informe seu usuário e senha</span>
             </div>
             <inputComponent :placeholder="'Seu usuário'"
                             :type="'text'"
@@ -67,9 +67,10 @@ export default {
 
             axios.post(url, user)
             .then((response) => {
+                
                 sessionStorage.setItem('token', response.data.token);
-                sessionStorage.setItem('name', user.name)
-                this.$router.push({ path: '/home' });
+
+                this.getUser(this.user.username);
             })
             .catch((error) => {
                 this.errorMessage = error.response.data;
@@ -79,6 +80,27 @@ export default {
                     this.alertShow = false;
                 }, 2000);
             });
+        },
+        getUser(userParams){
+            const url = 'https://fakestoreapi.com/users'
+            var nameUser;
+
+            axios.get(url)
+            .then((response) =>{
+
+                nameUser = response.data;
+
+                nameUser = nameUser.map(user => {
+                    if(userParams === user.username){
+                        sessionStorage.setItem('name', user.name.firstname)
+                    }
+                }).filter((user) => user !== undefined)
+
+                this.$router.push({ path: '/home' });
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
         }
     },
 }

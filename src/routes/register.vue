@@ -4,7 +4,7 @@
             <img src="/images/logo.png" alt="">
         </div>
         <div class="description">
-            <h2>Você está muito próximo de mudar a forma de <br>hospedar seu site</h2>
+            <h2>Você está muito próximo de mudar a forma de <br><span><u>hospedar seu site</u></span></h2>
         </div>
     </div>
     <div class="content">
@@ -25,12 +25,12 @@
                                 :label="'Celular'"
                                 v-model="user.telephone">
                 </inputComponent>
-                <inputComponent :placeholder="'e-mail'"
+                <inputComponent :placeholder="'E-mail'"
                                 :type="'text'"
                                 :label="'E-mail'"
                                 v-model="user.email">
                 </inputComponent>
-                <inputComponent :placeholder="'Informe um usuario'"
+                <inputComponent :placeholder="'Informe um usuário'"
                                 :type="'text'"
                                 :label="'Usuário'"
                                 v-model="user.username">
@@ -64,7 +64,7 @@
         </div>
 
         <div class="plan-choose">
-            <cardFlatComponent :hide="'hide'"
+            <cardPlanComponent :hide="'hide'"
                                :plan="this.choosenPlan">
 
                 <template v-slot:flag>
@@ -74,7 +74,7 @@
                 <template v-slot:changePlan>
                     <buttonComponent @click="choosePlan" :customclass="'black'">Trocar plano</buttonComponent>
                 </template>
-            </cardFlatComponent>
+            </cardPlanComponent>
         </div>
 
     </div>
@@ -127,9 +127,11 @@
     font-size: 32px;
     margin: 15px 0;
 }
+
 .description span{
-    font-size: 21px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 700;
+    color: #f30168;
 }
 .description{
     margin: 0 0 15px 0;
@@ -142,6 +144,12 @@
         flex-direction: column-reverse;
         align-items: center;
     }
+    .description h2{
+        font-size: 25px;
+    }
+    .description span{
+        font-size: 25px;
+    }
 }
 </style>
 
@@ -149,7 +157,7 @@
 
 import cardComponent from '../components/cardComponent.vue';
 import inputComponent from '../components/inputComponent.vue';
-import cardFlatComponent from '../components/cardFlatComponent.vue';
+import cardPlanComponent from '../components/cardPlanComponent.vue';
 import buttonComponent from '../components/buttonComponent.vue';
 import flagComponent from '../components/flagComponent.vue'
 import alertComponent from '../components/alertComponent.vue';
@@ -160,7 +168,7 @@ export default {
     components:{
         cardComponent,
         inputComponent,
-        cardFlatComponent,
+        cardPlanComponent,
         buttonComponent,
         flagComponent,
         alertComponent,
@@ -274,9 +282,9 @@ export default {
     
                 axios.post(url, user)
                 .then((response) => {
-                    this.$router.push({ path: '/home' });
-
                     sessionStorage.setItem('name', this.user.nameUser)
+                    
+                    this.$router.push({ path: '/home' });
                 })
                 .catch(function (error){
                     this.errorMessage = error.response.data;

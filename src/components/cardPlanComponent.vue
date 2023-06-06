@@ -25,7 +25,7 @@
         <div class="description-billingdate">
           <span v-if="plan.billingDate">cobrado {{ plan.billingDate }}</span>
           <span v-else>
-            voce não paga nada para usar
+            você não paga nada para usar
           </span>
         </div>
 
